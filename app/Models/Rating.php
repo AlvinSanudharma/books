@@ -5,24 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Book extends Model
+class Rating extends Model
 {
     use SoftDeletes;
 
     protected $guarded = [];
 
-    public function category()
+    public function book()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Book::class);
     }
 
     public function author()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function ratings()
-    {
-        return $this->hasMany(Rating::class);
     }
 }
