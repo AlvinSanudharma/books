@@ -13,8 +13,8 @@ class BookSeeder extends Seeder
      */
     public function run(): void
     {
-        $batchSize = 5000;
-        $total = 100000;
+        $batchSize = 500;
+        $total = 5000;
 
         for ($i = 0; $i < $total; $i += $batchSize) { 
             $books = Book::factory()->count($batchSize)->make()->toArray();
