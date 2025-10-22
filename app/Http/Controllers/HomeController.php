@@ -13,7 +13,19 @@ class HomeController extends Controller
                 ->withAvg('ratings as ratings_avg_rating', 'rating');
         $listShown = (int) $request->input('list_shown', 10);
         
-        $books = $query->paginate($listShown)->appends(['list_shown' => $listShown]);
+        $search = $request->search;
+
+        if ($search) {
+            $query->whereHas('author', function($builder) use($search) {
+                $builder->where('name', 'like', '%' . $search . '%');
+            });
+        }
+
+        $books = $query->paginate($listShown)
+                    ->appends([
+                        'list_shown' => $listShown,
+                        'search' => $search
+                    ]);
 
         return view('home', compact('books'));
     }
