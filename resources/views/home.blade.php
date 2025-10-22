@@ -108,20 +108,44 @@
                                 <th scope="col" class="px-4 py-3">Author Nmae</th>
                                 <th scope="col" class="px-4 py-3">Average Rating</th>
                                 <th scope="col" class="px-4 py-3">Voter</th>
+                                <th scope="col" class="px-4 py-3">
+                                    Actions
+                                </th>
 
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($books as $book)
                                 <tr class="border-b dark:border-gray-700">
-                                    <th scope="row"
-                                        class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $book->title }}</th>
+                                    <td class="px-4 py-3">{{ $book->title }}</td>
                                     <td class="px-4 py-3">{{ $book->category->name }}</td>
                                     <td class="px-4 py-3">{{ $book->author->name }}</td>
                                     <td class="px-4 py-3">{{ number_format($book->ratings_avg_rating ?? 0, 2) }}</td>
                                     <td class="px-4 py-3">{{ $book->voter }}</td>
+                                    <td class="px-4 py-3 flex items-center justify-start">
+                                        <button id="{{ $book->title }}-dropdown-button"
+                                            data-dropdown-toggle="{{ $book->title }}-dropdown"
+                                            class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
+                                            type="button">
+                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
+                                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+                                            </svg>
+                                        </button>
+                                        <div id="{{ $book->title }}-dropdown"
+                                            class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                                aria-labelledby="{{ $book->title }}-dropdown-button">
+                                                <li>
+                                                    <a href="#"
+                                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Give
+                                                        Rating</a>
+                                                </li>
+                                            </ul>
 
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
 
