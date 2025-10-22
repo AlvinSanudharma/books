@@ -97,8 +97,8 @@
                         </div>
                     </div>
                 </form>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <div class="overflow-x-auto px-3">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-3">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-4 py-3">Book Name</th>
@@ -110,19 +110,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="border-b dark:border-gray-700">
-                                <th scope="row"
-                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Laravel</th>
-                                <td class="px-4 py-3">Coding</td>
-                                <td class="px-4 py-3">Rezza</td>
-                                <td class="px-4 py-3">9</td>
-                                <td class="px-4 py-3">8</td>
+                            @foreach ($books as $book)
+                                <tr class="border-b dark:border-gray-700">
+                                    <th scope="row"
+                                        class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $book->title }}</th>
+                                    <td class="px-4 py-3">{{ $book->category->name }}</td>
+                                    <td class="px-4 py-3">{{ $book->author->name }}</td>
+                                    <td class="px-4 py-3">{{ number_format($book->ratings_avg_rating ?? 0, 2) }}</td>
+                                    <td class="px-4 py-3">{{ $book->voter }}</td>
 
-                            </tr>
+                                </tr>
+                            @endforeach
 
                         </tbody>
                     </table>
+                    {{ $books->links() }}
                 </div>
                 <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
                     aria-label="Table navigation">
