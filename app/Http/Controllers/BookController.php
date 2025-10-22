@@ -30,8 +30,8 @@ class BookController extends Controller
         return view('home', compact('books'));
     }
 
-    public function create()
+    public function create(Book $book)
     {
-        return view('add-rating');
+        return view('add-rating', compact('book'));
     }
 }
