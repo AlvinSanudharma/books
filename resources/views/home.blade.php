@@ -3,7 +3,8 @@
         <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
             <!-- Start coding here -->
             <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-                <form action="">
+                <form action="{{ route('index') }}" method="GET">
+                    <input type="hidden" name="list_shown" id="selectedDropdownValue" value="10">
                     <div
                         class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                         <div class="w-full md:w-1/2">
@@ -20,13 +21,13 @@
                                     </div>
                                     <input type="text" id="simple-search"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="Search" required="">
+                                        placeholder="Search">
                                 </div>
                             </form>
                         </div>
                         <div
                             class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                            <button type="button"
+                            <button type="submit"
                                 class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -190,18 +191,31 @@
             document.addEventListener('DOMContentLoaded', function() {
                 const button = document.getElementById('dropdownDefaultButton');
                 const dropdown = document.getElementById('dropdown');
+                const selectedDropdownHiddenInput = document.getElementById('selectedDropdownValue');
+
+                const currentValue = "{{ request('list_shown', 10) }}";
+
+                button.innerHTML = currentValue +
+                    ' <svg class="w-2.5 h-2.5 ms-3 inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">' +
+                    '<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />' +
+                    '</svg>';
+
+                selectedDropdownHiddenInput.value = currentValue;
 
                 dropdown.querySelectorAll('a').forEach(item => {
                     item.addEventListener('click', e => {
                         e.preventDefault();
 
-                        button.innerHTML = e.target.textContent.trim() +
+                        const value = e.target.textContent.trim();
+
+                        button.innerHTML = value +
                             ' <svg class="w-2.5 h-2.5 ms-3 inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">' +
                             '<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />' +
                             '</svg>';
 
-                        item.blur();
+                        selectedDropdownHiddenInput.value = value;
 
+                        item.blur();
                         button.click();
                     });
                 });
