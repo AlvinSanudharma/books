@@ -8,3 +8,4 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [BookController::class, 'index'])->name('index');
+Route::get('/add-rating', [BookController::class, 'create'])->name('create');

@@ -29,4 +29,9 @@ class BookController extends Controller
 
         return view('home', compact('books'));
     }
+
+    public function create()
+    {
+        return view('add-rating');
+    }
 }
