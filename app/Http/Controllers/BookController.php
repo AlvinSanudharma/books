@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
@@ -33,5 +34,43 @@ class BookController extends Controller
     public function create(Book $book)
     {
         return view('add-rating', compact('book'));
+    }
+
+    public function store(Request $request)
+    {
+        DB::beginTransaction();
+
+        try {
+            $book = Book::where('id', $request->id)->firstOrFail();
+
+            $existingRating = $book->ratings()
+                ->where('book_id', $request->id)
+                ->first();
+
+            $currentRating = $existingRating?->rating ?? 0;
+
+            $newRatingValue = $currentRating + (int) $request->rating;
+
+            if ($existingRating) {
+                $existingRating->update([
+                    'rating' => $newRatingValue,
+                ]);
+            } else {
+                $book->ratings()->create([
+                    'author_id' => $request->author_id,
+                    'book_id' => $request->id,
+                    'rating'  => $newRatingValue,
+                ]);
+            }
+
+
+            DB::commit();
+
+            return redirect()->route('index');
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+
+            DB::rollBack();
+        }
     }
 }

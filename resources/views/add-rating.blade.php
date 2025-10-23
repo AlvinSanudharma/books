@@ -8,13 +8,23 @@
                     Insert Rating
                 </h1>
 
-                <form method="POST" class="space-y-4 md:space-y-6" action="#">
+                <form method="POST" class="space-y-4 md:space-y-6" action="{{ route('store') }}">
+                    @csrf
                     <div>
-                        <label for="book_author" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Book
+                        <input type="hidden" name="id" id="id" value="{{ $book->id }}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </div>
+                    <div>
+                        <input type="hidden" name="author_id" id="author_id" value="{{ $book->author->id }}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="book_author"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Book
                             Author</label>
                         <input type="text" name="book_author" id="book_author" value="{{ $book->author->name }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            disabled>
+                            readonly>
                     </div>
                     <div>
                         <label for="book_author"
@@ -22,12 +32,12 @@
                             Name</label>
                         <input type="text" name="book_name" id="book_name" value="{{ $book->title }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            disabled>
+                            readonly>
                     </div>
                     <div>
                         <label for="rating"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rating</label>
-                        <select id="rating"
+                        <select id="rating" name="rating"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             required>
                             <option selected value="">Choose Rating</option>
