@@ -277,7 +277,7 @@
                     setTimeout(() => {
                         failedAlert.style.transition = 'opacity 0.5s ease';
                         failedAlert.style.opacity = '0';
-                        setTimeout(() => alert.remove(), 500);
+                        setTimeout(() => failedAlert.remove(), 500);
                     }, 3000);
                 }
             });
