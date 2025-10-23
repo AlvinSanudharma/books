@@ -79,7 +79,7 @@ class BookController extends Controller
     {
         $books = Book::with(['category', 'author'])
                 ->withCount(['ratings as ratings_count' => function ($query) {
-                    $query->where('rating', '>', 5); 
+                    $query->aboveFive(); 
                 }])
                 ->orderByDesc('ratings_count')
                 ->take(10)
