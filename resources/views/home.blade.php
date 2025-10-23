@@ -18,8 +18,8 @@
                     <span class="font-medium">session('failed')</span>
                 </div>
             @endif
-
             <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+
                 <form action="{{ route('index') }}" method="GET">
                     <input type="hidden" name="list_shown" id="selectedDropdownValue" value="10">
                     <div
@@ -116,13 +116,15 @@
                         </div>
                     </div>
                 </form>
+                <a href="{{ route('top') }}" class="block pb-3 px-4 dark:text-white">
+                    Top Author</a>
                 <div class="overflow-x-auto px-3">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-3">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-4 py-3">Book Name</th>
                                 <th scope="col" class="px-4 py-3">Category Name</th>
-                                <th scope="col" class="px-4 py-3">Author Nmae</th>
+                                <th scope="col" class="px-4 py-3">Author Name</th>
                                 <th scope="col" class="px-4 py-3">Average Rating</th>
                                 <th scope="col" class="px-4 py-3">Voter</th>
                                 <th scope="col" class="px-4 py-3">

@@ -74,4 +74,9 @@ class BookController extends Controller
             DB::rollBack();
         }
     }
+
+    public function topAuthor()
+    {
+        return view('famous');
+    }
 }
