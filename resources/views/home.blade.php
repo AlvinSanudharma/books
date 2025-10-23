@@ -2,6 +2,23 @@
     <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
         <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
             <!-- Start coding here -->
+
+            @if (session('success'))
+                <div id="success-alert"
+                    class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                    role="alert">
+                    <span class="font-medium">{{ session('success') }}</span>
+                </div>
+            @endif
+
+            @if (session('failed'))
+                <div id="failed-alert"
+                    class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                    role="alert">
+                    <span class="font-medium">session('failed')</span>
+                </div>
+            @endif
+
             <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                 <form action="{{ route('index') }}" method="GET">
                     <input type="hidden" name="list_shown" id="selectedDropdownValue" value="10">
@@ -244,6 +261,25 @@
                         button.click();
                     });
                 });
+
+                const alert = document.getElementById('success-alert');
+                const failedAlert = document.getElementById('failed-alert');
+
+                if (alert) {
+                    setTimeout(() => {
+                        alert.style.transition = 'opacity 0.5s ease';
+                        alert.style.opacity = '0';
+                        setTimeout(() => alert.remove(), 500);
+                    }, 2000);
+                }
+
+                if (failedAlert) {
+                    setTimeout(() => {
+                        failedAlert.style.transition = 'opacity 0.5s ease';
+                        failedAlert.style.opacity = '0';
+                        setTimeout(() => alert.remove(), 500);
+                    }, 3000);
+                }
             });
         </script>
     @endpush

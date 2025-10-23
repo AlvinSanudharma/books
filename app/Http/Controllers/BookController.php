@@ -66,9 +66,10 @@ class BookController extends Controller
 
             DB::commit();
 
-            return redirect()->route('index');
+            return redirect()->route('index')->with('success', 'Success insert rating!');
         } catch (\Throwable $th) {
-            dd($th->getMessage());
+            return redirect()->route('index')->with('failed', $th->getMessage());
+
 
             DB::rollBack();
         }
