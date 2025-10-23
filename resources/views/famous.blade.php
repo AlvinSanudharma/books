@@ -19,12 +19,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="border-b dark:border-gray-700">
-                                <td class="px-4 py-3">1</td>
-                                <td class="px-4 py-3">Joe</td>
-                                <td class="px-4 py-3">20</td>
-                            </tr>
-
+                            @for ($i = 0; $i < count($books); $i++)
+                                <tr class="border-b dark:border-gray-700">
+                                    <td class="px-4 py-3">{{ $i + 1 }}</td>
+                                    <td class="px-4 py-3">{{ $books[$i]->author->name }}</td>
+                                    <td class="px-4 py-3">{{ $books[$i]->voter }}</td>
+                                </tr>
+                            @endfor
                         </tbody>
                     </table>
                 </div>

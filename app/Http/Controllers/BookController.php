@@ -77,6 +77,14 @@ class BookController extends Controller
 
     public function topAuthor()
     {
-        return view('famous');
+        $books = Book::with(['category', 'author'])
+                ->withCount(['ratings as ratings_count' => function ($query) {
+                    $query->where('rating', '>', 5); 
+                }])
+                ->orderByDesc('ratings_count')
+                ->take(10)
+                ->get();
+
+        return view('famous', compact('books'));
     }
 }
